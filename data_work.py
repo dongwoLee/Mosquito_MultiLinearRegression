@@ -1,4 +1,8 @@
 import csv
+import operator
+import collections
+
+#humidity,rainfall,tem_max,tem_avg,tem_min,mosquito
 
 def csv_read(file):
      raw_data = []
@@ -9,12 +13,8 @@ def csv_read(file):
 
      return raw_data
 
-def make_dictionary(f_list):
-    factor_dictionary =dict()
-    for i in range(len(f_list)):
-        factor_dictionary[f_list[i][0]]=f_list[i][1:len(f_list[i])]
-
-    return factor_dictionary
-
 if __name__ == '__main__':
-    print(make_dictionary(csv_read("All_Data_2011.csv")))
+    # 2011.05.02 idx = 121
+    whole_2011_list = (csv_read("All_Data_2011.csv"))
+
+
