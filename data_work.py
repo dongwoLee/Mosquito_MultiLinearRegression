@@ -17,12 +17,12 @@ def csv_read(file):
 if __name__ == '__main__':
     # 2011.05.02 idx = 121
     whole_2011_list = (csv_read("All_Data_2011.csv"))
-    # a =[]
-    # for i in range(92,122):
-    #     a.append(whole_2011_list[i])
-    # pd = pandas.DataFrame(a)
-    # pd.to_csv("mosquito_2011_5.csv")
-    #
+    a =[]
+    for i in range(92,122):
+        a.append(whole_2011_list[i])
+    pd = pandas.DataFrame(a)
+    pd.to_csv("mosquito_2011_5.csv")
+
     result_list = []# result
     temp_list = [] # initialize
 
@@ -35,7 +35,19 @@ if __name__ == '__main__':
     temp_list.extend((humidity,rainfall,max_tem,avg_tem,min_tem))
     result_list.append(temp_list)
 
-    for i in range
+    for i in range(94, 122):
+        temp = list((float(result_list[len(result_list) - 1][0]) + float(whole_2011_list[i][1]),
+                         float(result_list[len(result_list) - 1][1]) + float(whole_2011_list[i][2]),
+                         float(result_list[len(result_list) - 1][2]) + float(whole_2011_list[i][3]),
+                         float(result_list[len(result_list) - 1][3]) + float(whole_2011_list[i][4]),
+                         float(result_list[len(result_list) - 1][4]) + float(whole_2011_list[i][5])))
+        result_list.append(temp)
+
+    for item in result_list:
+        print(item)
+
+    pd = pandas.DataFrame(result_list)
+    pd.to_csv("mosquito_2011_5.csv")
 
 
 
