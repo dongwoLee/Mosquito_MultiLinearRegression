@@ -21,7 +21,7 @@ if __name__ == '__main__':
     for i in range(92,122):
         a.append(whole_2011_list[i])
     pd = pandas.DataFrame(a)
-    pd.to_csv("mosquito_2011_5.csv")
+    pd.to_csv("mosquito_2011_5_bef.csv")
 
     result_list = []# result
     temp_list = [] # initialize
@@ -43,11 +43,14 @@ if __name__ == '__main__':
                          float(result_list[len(result_list) - 1][4]) + float(whole_2011_list[i][5])))
         result_list.append(temp)
 
-    for item in result_list:
-        print(item)
+    # for item in result_list:
+    #     print(item)
 
-    pd = pandas.DataFrame(result_list)
-    pd.to_csv("mosquito_2011_5.csv")
+    pd=pandas.DataFrame(result_list)
+    pd.to_csv("mosquito_2011_5_acu.csv")
+
+
+
 
 
 
