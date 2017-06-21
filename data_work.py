@@ -18,36 +18,41 @@ if __name__ == '__main__':
     # 2011.05.02 idx = 121
     whole_2011_list = (csv_read("All_Data_2011.csv"))
     a =[]
-    for i in range(92,122):
-        a.append(whole_2011_list[i])
-    pd = pandas.DataFrame(a)
-    pd.to_csv("mosquito_2011_5_bef.csv")
+    for j in range(121,151):
+        for i in range(j-29,j):
+            a.append(whole_2011_list[i])
+        pd = pandas.DataFrame(a)
+        pd.to_csv("mosquito_2011_5_bef.csv",sep=',',encoding='utf-8')
 
     result_list = []# result
     temp_list = [] # initialize
 
-    humidity = float(whole_2011_list[92][1])+float(whole_2011_list[93][1])
-    rainfall = float(whole_2011_list[92][2])+float(whole_2011_list[93][2])
-    max_tem = float(whole_2011_list[92][3])+float(whole_2011_list[93][3])
-    avg_tem = float(whole_2011_list[92][4])+float(whole_2011_list[93][4])
-    min_tem = float(whole_2011_list[92][5])+float(whole_2011_list[93][5])
+    for i in range(121,151):
+        temp_list = []  # initialize
+        humidity = float(whole_2011_list[i-1][1])+float(whole_2011_list[i-2][1])
+        rainfall = float(whole_2011_list[i-1][2])+float(whole_2011_list[i-2][2])
+        max_temp = float(whole_2011_list[i-1][3])+float(whole_2011_list[i-2][3])
+        avg_temp = float(whole_2011_list[i-1][4])+float(whole_2011_list[i-2][4])
+        min_temp = float(whole_2011_list[i-1][5])+float(whole_2011_list[i-2][5])
 
-    temp_list.extend((humidity,rainfall,max_tem,avg_tem,min_tem))
-    result_list.append(temp_list)
+        temp_list.extend((humidity,rainfall,max_temp,avg_temp,min_temp))
+        result_list.append(temp_list)
 
-    for i in range(94, 122):
-        temp = list((float(result_list[len(result_list) - 1][0]) + float(whole_2011_list[i][1]),
-                         float(result_list[len(result_list) - 1][1]) + float(whole_2011_list[i][2]),
-                         float(result_list[len(result_list) - 1][2]) + float(whole_2011_list[i][3]),
-                         float(result_list[len(result_list) - 1][3]) + float(whole_2011_list[i][4]),
-                         float(result_list[len(result_list) - 1][4]) + float(whole_2011_list[i][5])))
-        result_list.append(temp)
+        for j in range(i-3, i-30,-1):
+            temp = list((float(result_list[len(result_list) - 1][0]) + float(whole_2011_list[j][1]),
+                             float(result_list[len(result_list) - 1][1]) + float(whole_2011_list[j][2]),
+                             float(result_list[len(result_list) - 1][2]) + float(whole_2011_list[j][3]),
+                             float(result_list[len(result_list) - 1][3]) + float(whole_2011_list[j][4]),
+                             float(result_list[len(result_list) - 1][4]) + float(whole_2011_list[j][5])))
+            result_list.append(temp)
 
-    # for item in result_list:
-    #     print(item)
+        # for item in result_list:
+        #     print(item)
 
-    pd=pandas.DataFrame(result_list)
-    pd.to_csv("mosquito_2011_5_acu.csv")
+        df=pandas.DataFrame(result_list)
+        df.to_csv("mosquito_2011_5_acu.csv",sep=',',encoding='utf-8')
+
+
 
 
 
