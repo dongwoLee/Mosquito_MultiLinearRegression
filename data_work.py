@@ -38,7 +38,7 @@ if __name__ == '__main__':
         temp_list.extend((humidity,rainfall,max_temp,avg_temp,min_temp))
         result_list.append(temp_list)
 
-        for j in range(i-3, i-30,-1):
+        for j in range(i-3, i-31,-1):
             temp = list((float(result_list[len(result_list) - 1][0]) + float(whole_2011_list[j][1]),
                              float(result_list[len(result_list) - 1][1]) + float(whole_2011_list[j][2]),
                              float(result_list[len(result_list) - 1][2]) + float(whole_2011_list[j][3]),
