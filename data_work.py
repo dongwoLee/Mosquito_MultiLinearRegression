@@ -19,7 +19,7 @@ if __name__ == '__main__':
     #whole_2011_list = (csv_read("All_Data_2011.csv"))
     whole_2012_list = (csv_read("All_Data_2012.csv"))
     a =[]
-    for j in range(170,182):
+    for j in range(213,244):
         for i in range(j-29,j):
             a.append(whole_2012_list[i])
         pd = pandas.DataFrame(a)
@@ -28,7 +28,7 @@ if __name__ == '__main__':
     result_list = []# result
     temp_list = [] # initialize
 
-    for i in range(170,182):
+    for i in range(213,244):
         temp_list = []  # initialize
         humidity = float(whole_2012_list[i-1][1])+float(whole_2012_list[i-2][1])
         rainfall = float(whole_2012_list[i-1][2])+float(whole_2012_list[i-2][2])
