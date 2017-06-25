@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/MosquitoByMulti.iml" filepath="$PROJECT_DIR$/.idea/MosquitoByMulti.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../Mosquito/Mosquito/.idea/mosquito_predict.iml" filepath="$PROJECT_DIR$/../Mosquito/Mosquito/.idea/mosquito_predict.iml" />
     </modules>
   </component>
 </project>
