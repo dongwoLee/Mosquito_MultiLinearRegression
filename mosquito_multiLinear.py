@@ -35,3 +35,27 @@ if __name__ == '__main__':
     minTem = listTofloat(minTem)
     catchMosquito = listTofloat(catchMosquito)
 
+    W1 = tf.Variable(tf.random_uniform([1], -1.0, 1.0))
+    W2 = tf.Variable(tf.random_uniform([1], -1.0, 1.0))
+    W3 = tf.Variable(tf.random_uniform([1], -1.0, 1.0))
+    W4 = tf.Variable(tf.random_uniform([1], -1.0, 1.0))
+    W5 = tf.Variable(tf.random_uniform([1], -1.0, 1.0))
+
+    b = tf.Variable(tf.random_uniform([1], -1.0, 1.0))
+
+    hypothesis = W1 * humidity + W2 * rainfall + W3 * maxTem + W4 * avgTem + W5 * minTem + b
+
+    cost = tf.reduce_mean(tf.square(hypothesis-catchMosquito))
+
+    optimizer = tf.train.AdamOptimizer(learning_rate=1e-5)
+    train = optimizer.minimize(cost)
+
+    init = tf.global_variables_initializer()
+    sess = tf.Session()
+    sess.run(init)
+
+    for step in range(1000001):
+        sess.run(train)
+        if step % 1000 == 0:
+            print(step, sess.run(cost), sess.run(W1), sess.run(W2), sess.run(W3), sess.run(W4), sess.run(W5), sess.run(b))
+
