@@ -1,11 +1,12 @@
 import csv
+import math
 
-w1 = 0.00467562
-w2 = 0.01372897
-w3 = 2.76661563
-w4 = -7.44979143
-w5 = 5.42038155
-b = 10.81032372
+w1 = -0.09088045
+w2 = 0.01133743
+w3 = 5.01429796
+w4 = -13.08677006
+w5 = 8.76222229
+b = 195.59474182
 
 def listTofloat(factor):
     newList = []
@@ -36,6 +37,16 @@ def changeToLevel(list):
             level.append("1") # <0 is predicting level 0
 
     return level
+
+def changeToLevelLog(list):
+    logScale = []
+    for i in range(len(list)):
+        if(list[i]<=0):
+            logScale.append("1")
+        else:
+            logScale.append(math.ceil(math.log(list[i]/10,10)))
+
+    return logScale
 
 if __name__ == '__main__':
     with open('mosquito_result_test.csv', 'r', errors='ignore') as f:
@@ -68,15 +79,21 @@ if __name__ == '__main__':
     for i in range(len(testCatchMosquito)):
         mosquito_result.append(w1 * testHumidity[i] + w2 * testRainfall[i] + w3 * testMaxTem[i] + w4 * testAvgTem[i] + w5 *testMinTem[i] + b)
 
-    mosquito_result = changeToLevel(mosquito_result)
-    testCatchMosquito = changeToLevel(testCatchMosquito)
+    # mosquito_result = changeToLevelLog(mosquito_result)
+    # print (mosquito_result)
+    mosquito_result = changeToLevelLog(mosquito_result)
+    testCatchMosquito = changeToLevelLog(testCatchMosquito)
 
     cnt = 0
     for i in range(len(mosquito_result)):
-        if(abs(int(mosquito_result[i])-int(testCatchMosquito[i]))<=1):
+        if(abs(int(mosquito_result[i])-int(testCatchMosquito[i]))==0):
             cnt += 1
 
     print (cnt/len(mosquito_result)*100)
+
+    #No log scale -> 46.9% Yes log Scale -> 93% abs(x-y) <= 1
+    #No log scale -> 18.3% Yes log Scale -> 45.6% Just same case
+
 
 
 

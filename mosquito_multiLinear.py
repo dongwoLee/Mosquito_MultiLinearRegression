@@ -47,14 +47,14 @@ if __name__ == '__main__':
 
     cost = tf.reduce_mean(tf.square(hypothesis-catchMosquito))
 
-    optimizer = tf.train.AdamOptimizer(learning_rate=1e-5)
+    optimizer = tf.train.AdamOptimizer(learning_rate=1e-3)
     train = optimizer.minimize(cost)
 
     init = tf.global_variables_initializer()
     sess = tf.Session()
     sess.run(init)
 
-    for step in range(1000001):
+    for step in range(200001):
         sess.run(train)
         if step % 1000 == 0:
             print(step, sess.run(cost), sess.run(W1), sess.run(W2), sess.run(W3), sess.run(W4), sess.run(W5), sess.run(b))
