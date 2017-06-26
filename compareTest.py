@@ -16,22 +16,24 @@ def listTofloat(factor):
 def changeToLevel(list):
     level=[]
     for i in range(len(list)):
-        if(0<=list[i]<=20):
+        if(0<=list[i]<21):
             level.append("1")
-        elif(21<=list[i]<=40):
+        elif(21<=list[i]<41):
             level.append("2")
-        elif (41 <= list[i] <= 80):
-            level.append("2")
-        elif (81 <= list[i] <= 160):
-            level.append("2")
-        elif (161 <= list[i] <= 320):
-            level.append("2")
-        elif (321 <= list[i] <= 640):
-            level.append("2")
-        elif (641 <= list[i] <= 1280):
-            level.append("2")
+        elif (41 <= list[i] <81):
+            level.append("3")
+        elif (81 <= list[i] < 161):
+            level.append("4")
+        elif (161 <= list[i] < 321):
+            level.append("5")
+        elif (321 <= list[i] <641):
+            level.append("6")
+        elif (641 <= list[i] < 1281):
+            level.append("7")
         elif (list[i]>=1281):
             level.append("8")
+        else:
+            level.append("1") # <0 is predicting level 0
 
     return level
 
@@ -69,7 +71,13 @@ if __name__ == '__main__':
     mosquito_result = changeToLevel(mosquito_result)
     testCatchMosquito = changeToLevel(testCatchMosquito)
 
-    # print (len(mosquito_result))
-    # print (len(testCatchMosquito))
+    cnt = 0
+    for i in range(len(mosquito_result)):
+        if(abs(int(mosquito_result[i])-int(testCatchMosquito[i]))<=1):
+            cnt += 1
+
+    print (cnt/len(mosquito_result)*100)
+
+
 
 
