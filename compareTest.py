@@ -1,12 +1,12 @@
 import csv
 import math
 
-w1 =  0.0372998
-w2 = -0.01532235
-w3 = -0.71386385
-w4 = -0.18444608
-w5 = 1.64801347
-b = 1.76021981
+w1 = 0.00682603
+w2 = 0.01242442
+w3 = 2.60076094
+w4 = -7.09773397
+w5 = 5.23492908
+b = 9.14168453
 
 def listTofloat(factor):
     newList = []
@@ -44,9 +44,26 @@ def changeToLevelLog(list):
         if(list[i]<=20):
             logScale.append("1")
         else:
-            logScale.append(math.ceil(math.log(list[i]/10,10)))
+            overEight = (math.ceil(math.log(list[i] / 10, 10)))
+            if(overEight>=8):
+                logScale.append("8")
+            else:
+                logScale.append(str(overEight))
 
     return logScale
+
+# def minimizeLevel(list):
+#     minimizeRes = []
+#     for i in range(len(list)):
+#         if((int(list[i])==1) or int(list[i])==2):
+#             minimizeRes.append("1")
+#         elif(int(list[i])==3):
+#             minimizeRes.append("2")
+#         elif(int(list[i])==4 or int(list[i])==5):
+#             minimizeRes.append("3")
+#         else:
+#             minimizeRes.append("4")
+#     return minimizeRes
 
 if __name__ == '__main__':
     with open('mosquito_result_test.csv', 'r', errors='ignore') as f:
@@ -81,17 +98,19 @@ if __name__ == '__main__':
     for i in range(len(testCatchMosquito)):
         mosquito_result.append(w1 * testHumidity[i] + w2 * testRainfall[i] + w3 * testMaxTem[i] + w4 * testAvgTem[i] + w5 *testMinTem[i] + b)
 
-    print (mosquito_result)
-
+    # print (testCatchMosquito)
+    # print (mosquito_result)
     mosquito_result = changeToLevelLog(mosquito_result)
     testCatchMosquito = changeToLevelLog(testCatchMosquito)
 
-    print ((mosquito_result))
-    print ((testCatchMosquito))
+    # mosquito_result = changeToLevel((mosquito_result))
+    # testCatchMosquito = changeToLevel(testCatchMosquito)
+    #print (mosquito_result)
+    print (testCatchMosquito)
 
     cnt = 0
     for i in range(len(mosquito_result)):
-        if(abs(int(mosquito_result[i])-int(testCatchMosquito[i]))==0):
+        if(abs(int(mosquito_result[i])-int(testCatchMosquito[i]))<=1):
             cnt += 1
 
     print (cnt/len(mosquito_result)*100)
