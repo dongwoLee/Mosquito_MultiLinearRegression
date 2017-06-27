@@ -1,12 +1,12 @@
 import csv
 import math
 
-w1 = -0.09088045
-w2 = 0.01133743
-w3 = 5.01429796
-w4 = -13.08677006
-w5 = 8.76222229
-b = 195.59474182
+w1 =  0.0372998
+w2 = -0.01532235
+w3 = -0.71386385
+w4 = -0.18444608
+w5 = 1.64801347
+b = 1.76021981
 
 def listTofloat(factor):
     newList = []
@@ -34,14 +34,14 @@ def changeToLevel(list):
         elif (list[i]>=1281):
             level.append("8")
         else:
-            level.append("1") # <0 is predicting level 0
+            level.append("1") # <0 is predicting level 1
 
     return level
 
 def changeToLevelLog(list):
     logScale = []
     for i in range(len(list)):
-        if(list[i]<=0):
+        if(list[i]<=20):
             logScale.append("1")
         else:
             logScale.append(math.ceil(math.log(list[i]/10,10)))
@@ -70,6 +70,8 @@ if __name__ == '__main__':
     testHumidity = listTofloat(testHumidity)
     testRainfall = listTofloat(testRainfall)
     testMaxTem = listTofloat(testMaxTem)
+
+
     testAvgTem = listTofloat(testAvgTem)
     testMinTem = listTofloat(testMinTem)
     testCatchMosquito = listTofloat(testCatchMosquito)
@@ -79,10 +81,13 @@ if __name__ == '__main__':
     for i in range(len(testCatchMosquito)):
         mosquito_result.append(w1 * testHumidity[i] + w2 * testRainfall[i] + w3 * testMaxTem[i] + w4 * testAvgTem[i] + w5 *testMinTem[i] + b)
 
-    # mosquito_result = changeToLevelLog(mosquito_result)
-    # print (mosquito_result)
+    print (mosquito_result)
+
     mosquito_result = changeToLevelLog(mosquito_result)
     testCatchMosquito = changeToLevelLog(testCatchMosquito)
+
+    print ((mosquito_result))
+    print ((testCatchMosquito))
 
     cnt = 0
     for i in range(len(mosquito_result)):

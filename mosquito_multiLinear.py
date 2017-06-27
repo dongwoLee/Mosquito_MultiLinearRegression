@@ -47,7 +47,7 @@ if __name__ == '__main__':
 
     cost = tf.reduce_mean(tf.square(hypothesis-catchMosquito))
 
-    optimizer = tf.train.AdamOptimizer(learning_rate=1e-3)
+    optimizer = tf.train.AdamOptimizer(learning_rate=1e-5)
     train = optimizer.minimize(cost)
 
     init = tf.global_variables_initializer()
