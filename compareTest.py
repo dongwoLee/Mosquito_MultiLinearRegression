@@ -44,7 +44,7 @@ def changeToLevelLog(list):
         if(list[i]<=20):
             logScale.append("1")
         else:
-            overEight = (math.ceil(math.log(list[i] / 10, 10)))
+            overEight = (math.ceil(math.log(list[i] / 10, 2)))
             if(overEight>=8):
                 logScale.append("8")
             else:
