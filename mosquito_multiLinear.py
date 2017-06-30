@@ -49,7 +49,7 @@ if __name__ == '__main__':
     avgTem = listTofloat(avgTem)
     minTem = listTofloat(minTem)
     catchMosquito = adaptLog(listTofloat(catchMosquito))
-    catchMosquito = list(map(int,catchMosquito))
+    catchMosquito = list(map(float,catchMosquito))
 
     W1 = tf.Variable(tf.random_uniform([1], -1.0, 1.0))
     W2 = tf.Variable(tf.random_uniform([1], -1.0, 1.0))
@@ -70,7 +70,7 @@ if __name__ == '__main__':
     sess = tf.Session()
     sess.run(init)
 
-    for step in range(200001):
+    for step in range(100001):
         sess.run(train)
         if step % 1000 == 0:
             print(step, sess.run(cost), sess.run(W1), sess.run(W2), sess.run(W3), sess.run(W4), sess.run(W5), sess.run(b))
