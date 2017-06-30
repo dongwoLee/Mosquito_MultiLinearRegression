@@ -1,5 +1,6 @@
 import csv
 import tensorflow as tf
+import math
 import numpy as np
 import pandas as pd
 
@@ -8,6 +9,20 @@ def listTofloat(factor):
     for i in range((len(factor))):
         newList.append(float(factor[i][0]))
     return newList
+
+def adaptLog(list):
+    logScale = []
+    for i in range(len(list)):
+        if (list[i] <= 20):
+            logScale.append("1")
+        else:
+            overEight = (math.ceil(math.log(list[i] / 10, 2)))
+            if (overEight >= 8):
+                logScale.append("8")
+            else:
+                logScale.append(str(overEight))
+
+    return logScale
 
 if __name__ == '__main__':
     with open('mosquito_result_training.csv', 'r', errors='ignore') as f:
@@ -33,7 +48,8 @@ if __name__ == '__main__':
     maxTem = listTofloat(maxTem)
     avgTem = listTofloat(avgTem)
     minTem = listTofloat(minTem)
-    catchMosquito = listTofloat(catchMosquito)
+    catchMosquito = adaptLog(listTofloat(catchMosquito))
+    catchMosquito = list(map(int,catchMosquito))
 
     W1 = tf.Variable(tf.random_uniform([1], -1.0, 1.0))
     W2 = tf.Variable(tf.random_uniform([1], -1.0, 1.0))
@@ -54,7 +70,7 @@ if __name__ == '__main__':
     sess = tf.Session()
     sess.run(init)
 
-    for step in range(100001):
+    for step in range(200001):
         sess.run(train)
         if step % 1000 == 0:
             print(step, sess.run(cost), sess.run(W1), sess.run(W2), sess.run(W3), sess.run(W4), sess.run(W5), sess.run(b))
