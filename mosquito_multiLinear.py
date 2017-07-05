@@ -25,7 +25,7 @@ def adaptLog(list):
     return logScale
 
 if __name__ == '__main__':
-    with open('mosquito_result_training.csv', 'r', errors='ignore') as f:
+    with open('training_data_again.csv', 'r', errors='ignore') as f:
         reader = csv.reader(f, delimiter=',')
         included_cols = [0, 1, 2, 3, 4, 5]
         humidity = []
