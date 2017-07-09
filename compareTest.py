@@ -1,12 +1,12 @@
 import csv
 import math
 
-w1 = 0.02726831
-w2 = -0.03683015
-w3 = -0.45757365
-w4 = 0.62236381
-w5 = -0.1633746
-b = 1.3808099
+w1 =0.00264151
+w2 = -0.00375117
+w3 = -0.25488108
+w4 = 0.54489952
+w5 = -0.28670394
+b = 0.88455576
 
 def listTofloat(factor):
     newList = []
@@ -30,7 +30,7 @@ def changeToLevelLog(list):
     return logScale
 
 if __name__ == '__main__':
-    with open('mosquito_result_test.csv', 'r', errors='ignore') as f:
+    with open('test_data_again.csv', 'r', errors='ignore') as f:
         reader = csv.reader(f, delimiter=',')
         included_cols = [0, 1, 2, 3, 4, 5]
         testHumidity = []
@@ -56,7 +56,6 @@ if __name__ == '__main__':
     testCatchMosquito = changeToLevelLog(listTofloat(testCatchMosquito))
     testCatchMosquito = list(map(int,testCatchMosquito))
 
-
     print (testCatchMosquito)
 
     mosquito_result = []
@@ -64,22 +63,28 @@ if __name__ == '__main__':
     for i in range(len(testCatchMosquito)):
         mosquito_result.append(w1 * testHumidity[i] + w2 * testRainfall[i] + w3 * testMaxTem[i] + w4 * testAvgTem[i] + w5 *testMinTem[i] + b)
 
-    print (mosquito_result)
+    # for i in range(len(mosquito_result)):
+    #     mosquito_result[i] = math.ceil(mosquito_result[i])
+    #     if(mosquito_result[i]>8):
+    #         mosquito_result[i]=8
+    #     elif(mosquito_result[i]<1):
+    #         mosquito_result[i]=1
+    # print (mosquito_result)
 
-    mosquito_result = list(map(int,mosquito_result))
-    for i in range(len(mosquito_result)):
-        if(mosquito_result[i]<=0):
-            mosquito_result[i] = 1
-        elif(mosquito_result[i]>=8):
-            mosquito_result[i]=8
-
-    print (mosquito_result)
-    cnt = 0
-    for i in range(len(mosquito_result)):
-        if(abs(int(mosquito_result[i])-int(testCatchMosquito[i]))<=1):
-            cnt += 1
-
-    print (cnt/len(mosquito_result)*100)
+    # mosquito_result = list(map(int,mosquito_result))
+    # for i in range(len(mosquito_result)):
+    #     if(mosquito_result[i]<=0):
+    #         mosquito_result[i] = 1
+    #     elif(mosquito_result[i]>=8):
+    #         mosquito_result[i]=8
+    #
+    # print (mosquito_result)
+    # cnt = 0
+    # for i in range(len(mosquito_result)):
+    #     if(abs(int(mosquito_result[i])-int(testCatchMosquito[i]))<=1):
+    #         cnt += 1
+    #
+    # print (cnt/len(mosquito_result)*100)
 
 
 
